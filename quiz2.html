@@ -144,7 +144,7 @@
             border: 1px solid #fecaca;
             color: #991b1b;
         }
-        
+
         .back-link {
             display: block;
             color: red;
@@ -178,6 +178,7 @@
 </div>
 
 <script>
+    // Las 30 preguntas exactas originales
     const questionsData = [
         {
             question: "1. Según la Cumbre Mundial sobre la Sociedad de la Información celebrada en 2003, ¿quiénes deben ser principalmente los arquitectos de una sociedad de la información centrada en la persona e integradora?",
@@ -187,8 +188,7 @@
                 "C) Los técnicos en redes de telecomunicaciones.",
                 "D) Los ministerios de educación nacional."
             ],
-            correct: 0,
-            explanation: "Los ingenieros de sistemas son identificados como actores clave en el diseño de arquitecturas digitales centradas en las personas."
+            correct: 0
         },
         {
             question: "2. ¿Cuáles son las tres grandes áreas de conocimiento en las que se mueve principalmente el ingeniero de sistemas colombiano según el texto?",
@@ -198,29 +198,288 @@
                 "C) Redes satelitales, seguridad cibernética y hardware industrial.",
                 "D) Contabilidad gerencial, auditoría de sistemas y redes eléctricas."
             ],
-            correct: 1,
-            explanation: "El perfil profesional abarca específicamente la construcción de software, las tecnologías de información y los sistemas de información."
+            correct: 1
         },
-        // Puedes agregar la propiedad 'explanation' al resto de tus preguntas de la misma manera
         {
             question: "3. ¿En qué año se creó COLCIENCIAS como entidad para fomentar el desarrollo científico en el país?",
-            options: ["A) 1950", "B) 1968", "C) 1985", "D) 1991"],
-            correct: 1,
-            explanation: "COLCIENCIAS se instituyó formalmente en el año 1968 para impulsar la ciencia y tecnología."
+            options: [
+                "A) 1950",
+                "B) 1968",
+                "C) 1985",
+                "D) 1991"
+            ],
+            correct: 1
         },
         {
             question: "4. En el análisis de los componentes de formación de la ingeniería, ¿qué porcentaje de créditos corresponde a la 'Ingeniería Aplicada' según el gráfico estadístico del documento?",
-            options: ["A) 23.1%", "B) 20.6%", "C) 43.8%", "D) 12.5%"],
-            correct: 2,
-            explanation: "El desglose curricular del documento indica un 43.8% destinado a la ingeniería aplicada."
+            options: [
+                "A) 23.1%",
+                "B) 20.6%",
+                "C) 43.8%",
+                "D) 12.5%"
+            ],
+            correct: 2
         },
         {
             question: "5. ¿Cuál fue el nombre del primer artefacto histórico mencionado que dio inicio a la historia de las computadoras cerca del año 3000 a.C.?",
-            options: ["A) El ábaco", "B) La Pascalina", "C) La máquina analítica", "D) El ENIAC"],
-            correct: 0,
-            explanation: "El ábaco es considerado históricamente el precursor más antiguo para el cálculo manual."
+            options: [
+                "A) El ábaco",
+                "B) La Pascalina",
+                "C) La máquina analítica",
+                "D) El ENIAC"
+            ],
+            correct: 0
+        },
+        {
+            question: "6. ¿Quién creó la 'Pascalina', calculadora mecánica inicial para sumar y restar?",
+            options: [
+                "A) Gottfried Von Leibniz",
+                "B) Blaise Pascal",
+                "C) Lee De Forest",
+                "D) John Von Neumann"
+            ],
+            correct: 1
+        },
+        {
+            question: "7. ¿Durante qué década y contexto histórico se presentaron grandes avances en sistemas de cómputo como el Colossus (para decodificar mensajes) y el ENIAC?",
+            options: [
+                "A) Los años 20's, durante la Gran Depresión.",
+                "B) Los años 40's, durante la Segunda Guerra Mundial.",
+                "C) Los años 60's, durante la carrera espacial.",
+                "D) Los años 80's, con la llegada de la PC."
+            ],
+            correct: 1
+        },
+        {
+            question: "8. ¿Qué componente electrónico caracterizó a las computadoras de la Primera Generación?",
+            options: [
+                "A) Transistores",
+                "B) Circuitos integrados (chips)",
+                "C) Tubos al vacío",
+                "D) Microprocesadores LSI"
+            ],
+            correct: 2
+        },
+        {
+            question: "9. ¿Quiénes inventaron el transistor en los laboratorios Bell, reemplazando a los tubos al vacío en la segunda generación?",
+            options: [
+                "A) William Shockley, John Bardeen y Walter Brattain",
+                "B) Jack S. Kilby y Robert Noyce",
+                "C) Lee De Forest y H. D. Arnold",
+                "D) Charles Babbage y Ada Lovelace"
+            ],
+            correct: 0
+        },
+        {
+            question: "10. ¿Cuál fue la clave del desarrollo tecnológico en la Tercera Generación de computadoras?",
+            options: [
+                "A) La invención del microprocesador central.",
+                "B) El uso de circuitos integrados (chips de silicón).",
+                "C) El desarrollo de la inteligencia artificial y robótica.",
+                "D) La creación de redes de núcleos magnéticos."
+            ],
+            correct: 1
+        },
+        {
+            question: "11. ¿En qué año apareció por primera vez el término PC (Computador Personal) y se obtuvo la primera patente con este nombre?",
+            options: [
+                "A) 1964",
+                "B) 1975",
+                "C) 1984",
+                "D) 1995"
+            ],
+            correct: 0
+        },
+        {
+            question: "12. ¿Qué hito tecnológico importante ocurrió en el año 1995 que transformó radicalmente la informática y la comunicación global?",
+            options: [
+                "A) IBM lanzó el primer computador personal portátil.",
+                "B) Microsoft lanzó al mercado el sistema operativo Windows 95.",
+                "C) Se patentó oficialmente el primer circuito integrado.",
+                "D) Se inventó el transistor de silicio."
+            ],
+            correct: 1
+        },
+        {
+            question: "13. Según la jerarquía de unidades de almacenamiento, ¿a cuántos Megabytes (MB) equivale exactamente 1 Gigabyte (GB)?",
+            options: [
+                "A) 1000 MB",
+                "B) 1024 MB",
+                "C) 512 MB",
+                "D) 2048 MB"
+            ],
+            correct: 1
+        },
+        {
+            question: "14. Para convertir una unidad de almacenamiento grande a una más pequeña (por ejemplo, de GB a KB), ¿qué operación matemática se debe realizar según el texto?",
+            options: [
+                "A) División sucesiva",
+                "B) Multiplicación por 1024",
+                "C) Resta acumulativa",
+                "D) Potenciación base 2"
+            ],
+            correct: 1
+        },
+        {
+            question: "15. Para convertir un valor de una unidad pequeña a una más grande (por ejemplo, de KB a TB), ¿qué operación matemática se debe aplicar?",
+            options: [
+                "A) Multiplicación",
+                "B) División entre 1024",
+                "C) División entre 8",
+                "D) Suma de potencias"
+            ],
+            correct: 1
+        },
+        {
+            question: "16. Si se desea descargar un archivo de 5 GB a una velocidad constante de 103 KB/s, ¿cuál es el primer paso metodológico indicado en el texto para homogeneizar las unidades antes de hallar el tiempo?",
+            options: [
+                "A) Convertir los GB a MB y luego a Kilobytes (KB).",
+                "B) Dividir los GB directamente entre la velocidad en segundos.",
+                "C) Multiplicar los segundos por 60 y luego por 24.",
+                "D) Convertir los KB/s a Megabits por hora."
+            ],
+            correct: 0
+        },
+        {
+            question: "17. ¿Cuál es la mínima unidad de medida de información en informática sobre la cual se construyen todas las demás?",
+            options: [
+                "A) El Byte",
+                "B) El Nibble",
+                "C) El Bit",
+                "D) El Kilobyte"
+            ],
+            correct: 2
+        },
+        {
+            question: "18. ¿Cómo se define el sistema numérico binario utilizado internamente por los computadores?",
+            options: [
+                "A) Sistema con base 8, conformado por valores de 0 a 7.",
+                "B) Sistema con base 10, conformado por valores de 0 a 9.",
+                "C) Sistema con base 2, conformado exclusivamente por 1 y 0.",
+                "D) Sistema con base 16, conformado por números y letras de A a F."
+            ],
+            correct: 2
+        },
+        {
+            question: "19. ¿Qué rango de caracteres comprende el código estándar ASCII mencionado en el texto para representar letras, números y símbolos?",
+            options: [
+                "A) Del 0 al 127",
+                "B) Del 0 al 255 (256 caracteres)",
+                "C) Del 1 al 1000",
+                "D) Del 10 al 99"
+            ],
+            correct: 1
+        },
+        {
+            question: "20. Para convertir un número decimal a binario, ¿qué procedimiento matemático se explica paso a paso en el texto?",
+            options: [
+                "A) Multiplicaciones sucesivas por 2 tomando los enteros.",
+                "B) Divisiones sucesivas por 2 sin tener en cuenta los decimales hasta que el divisor sea 0, tomando los residuos del último al primero.",
+                "C) Elevar la base a la potencia N y sumar los exponentes.",
+                "D) Convertir primero a base octal y luego a binario."
+            ],
+            correct: 1
+        },
+        {
+            question: "21. Para convertir un valor binario a decimal, ¿qué regla se debe seguir con las potencias de base 2?",
+            options: [
+                "A) Se suman todos los valores de las potencias sin importar el dígito binario.",
+                "B) Se eleva a base 2 y solo se suman los valores cuyas posiciones contengan un '1' en el número binario.",
+                "C) Se multiplican todas las posiciones por 8.",
+                "D) Se divide el número total entre 16."
+            ],
+            correct: 1
+        },
+        {
+            question: "22. En el sistema numérico Hexadecimal (base 16), ¿cómo se representan los valores numéricos 10, 11 y 15 respectivamente?",
+            options: [
+                "A) J, K, Z",
+                "B) A, B, F",
+                "C) X, Y, W",
+                "D) T, U, V"
+            ],
+            correct: 1
+        },
+        {
+            question: "23. En las etapas del razonamiento lógico para resolver problemas, ¿en qué consiste la fase de 'Planteamiento del problema'?",
+            options: [
+                "A) En escribir el código fuente directamente en el computador.",
+                "B) En una conversación simple donde se especifica qué se tiene y qué se quiere solucionar o mejorar.",
+                "C) En compilar el algoritmo para verificar errores de sintaxis.",
+                "D) En ejecutar el programa en la consola de comandos."
+            ],
+            correct: 1
+        },
+        {
+            question: "24. ¿Qué diferencia fundamental existe entre la etapa de 'Codificación' y la 'Digitación' dentro del proceso lógico?",
+            options: [
+                "A) La codificación interpreta el desarrollo previo plasmándolo en papel con normas de lenguaje de programación; la digitación es ingresarlo al sistema.",
+                "B) La codificación es solo para hardware y la digitación para bases de datos.",
+                "C) No existe ninguna diferencia, son exactamente el mismo término.",
+                "D) La codificación se realiza al final de la ejecución del programa."
+            ],
+            correct: 0
+        },
+        {
+            question: "25. ¿Qué juego lúdico de origen japonés mencionado en el texto tiene un proceso similar a un crucigrama y exige sumar valores en filas y columnas sin repetir números del 1 al 9 por bloque?",
+            options: [
+                "A) Sudoku",
+                "B) Kakuro",
+                "C) Tangram",
+                "D) Torre de Hanói"
+            ],
+            correct: 1
+        },
+        {
+            question: "26. ¿De qué origen es el juego 'Tangram' y de cuántas fichas (principalmente triángulos) consta para armar figuras sin que sobren piezas?",
+            options: [
+                "A) Japonés, consta de 5 fichas.",
+                "B) Chino, consta de 7 fichas (5 de ellas triángulos).",
+                "C) Griego, consta de 9 fichas rectangulares.",
+                "D) Egipcio, consta de 4 fichas circulares."
+            ],
+            correct: 1
+        },
+        {
+            question: "27. ¿Qué aspecto lógico fomenta principalmente el juego matemático de la 'Torre de Hanói'?",
+            options: [
+                "A) La recursividad y el control de movimientos mínimos.",
+                "B) El diseño de interfaces gráficas web.",
+                "C) La normalización de bases de datos relacionales.",
+                "D) La velocidad de compilación en Java."
+            ],
+            correct: 0
+        },
+        {
+            question: "28. Si la Torre de Hanói se inicia con 3 discos, ¿cuál es la cantidad mínima de movimientos requeridos para solucionarla?",
+            options: [
+                "A) 3 movimientos",
+                "B) 7 movimientos",
+                "C) 15 movimientos",
+                "D) 31 movimientos"
+            ],
+            correct: 1
+        },
+        {
+            question: "29. ¿Cuál es una de las normas más significativas al jugar la Torre de Hanói?",
+            options: [
+                "A) Se pueden mover varios discos al mismo tiempo.",
+                "B) Nunca debe ir un disco grande sobre uno pequeño.",
+                "C) Los discos deben colocarse en orden descendente en la torre de salida.",
+                "D) Está permitido saltarse postes intermedios."
+            ],
+            correct: 1
+        },
+        {
+            question: "30. Según las pistas de aprendizaje del documento sobre los juegos lógicos, ¿cómo deben ser vistos principalmente por el estudiante de desarrollo de software?",
+            options: [
+                "A) Como una obligación académica tediosa sin aplicación real.",
+                "B) Como herramientas divertidas para desarrollar habilidades de pensamiento aplicables al desarrollo de software.",
+                "C) Como pruebas exclusivas de matemáticas financieras.",
+                "D) Como un requisito para aprobar la instalación de Java."
+            ],
+            correct: 1
         }
-        // ... (el resto de tus preguntas continúan aquí)
     ];
 
     function loadQuiz() {
@@ -237,7 +496,7 @@
             q.options.forEach((opt, optIndex) => {
                 htmlContent += `
                     <label class="option-label" id="label-${index}-${optIndex}">
-                        <input type="radio" name="question-${index}" value="${optIndex}" onchange="handleOptionChange(${index}, ${optIndex})">
+                        <input type="radio" name="question-${index}" value="${optIndex}" onchange="handleOptionSelection(${index}, ${optIndex})">
                         <span>${opt}</span>
                     </label>
                 `;
@@ -253,17 +512,16 @@
         container.innerHTML = htmlContent;
     }
 
-    // Función que se ejecuta inmediatamente al seleccionar una opción de manera interactiva
-    function handleOptionChange(qIndex, selectedOptIndex) {
+    // Función que evalúa la pregunta inmediatamente y deshabilita sus opciones para que no se puedan cambiar
+    function handleOptionSelection(qIndex, selectedOptIndex) {
         const q = questionsData[qIndex];
         const feedbackBox = document.getElementById(`feedback-${qIndex}`);
         
-        // Limpiar estilos previos de las opciones en esta pregunta
-        for (let i = 0; i < q.options.length; i++) {
-            const lbl = document.getElementById(`label-${qIndex}-${i}`);
-            lbl.style.backgroundColor = '';
-            lbl.style.borderColor = 'var(--border-color)';
-        }
+        // Bloquear todos los inputs de esta pregunta específica para que no se puedan cambiar
+        const inputs = document.querySelectorAll(`input[name="question-${qIndex}"]`);
+        inputs.forEach(input => {
+            input.disabled = true;
+        });
 
         const selectedLabel = document.getElementById(`label-${qIndex}-${selectedOptIndex}`);
         const correctLabel = document.getElementById(`label-${qIndex}-${q.correct}`);
@@ -276,18 +534,18 @@
             selectedLabel.style.borderColor = '#22c55e';
             
             feedbackBox.className = 'feedback-box feedback-correct';
-            feedbackBox.innerHTML = `<strong>¡Correcto!</strong> ${q.explanation || 'Has seleccionado la respuesta adecuada.'}`;
+            feedbackBox.innerHTML = `<strong>¡Correcto!</strong> Has seleccionado la respuesta adecuada.`;
         } else {
             // Respuesta Incorrecta
             selectedLabel.style.backgroundColor = '#fee2e2';
             selectedLabel.style.borderColor = '#ef4444';
 
-            // Mostrar también la correcta en verde suave
+            // Mostrar la correcta en verde suave
             correctLabel.style.backgroundColor = '#dcfce7';
             correctLabel.style.borderColor = '#22c55e';
 
             feedbackBox.className = 'feedback-box feedback-incorrect';
-            feedbackBox.innerHTML = `<strong>Incorrecto.</strong> La opción correcta es la <strong>${String.fromCharCode(65 + q.correct)}</strong>. ${q.explanation || ''}`;
+            feedbackBox.innerHTML = `<strong>Incorrecto.</strong> La opción correcta era la <strong>${String.fromCharCode(65 + q.correct)}</strong>.`;
         }
     }
 
@@ -310,8 +568,10 @@
 
         if (score === questionsData.length) {
             feedbackText.innerText = "¡Excelente! Dominas a la perfección los contenidos de las primeras 45 páginas.";
-        } else if (score >= (questionsData.length / 2)) {
+        } else if (score >= 22) {
             feedbackText.innerText = "¡Muy buen trabajo! Tienes claros los conceptos fundamentales del módulo.";
+        } else if (score >= 15) {
+            feedbackText.innerText = "Buen intento, pero te sugerimos repasar la lectura de las unidades 1 y 2 del documento.";
         } else {
             feedbackText.innerText = "Es recomendable realizar una lectura detallada de las páginas 1 a 45 para afianzar los conceptos.";
         }
