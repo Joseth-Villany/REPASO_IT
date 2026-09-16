@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Integral (15 Preguntas) - Ingeniería de Sistemas</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col justify-between font-sans">
+
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white shadow-md py-6 px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-2xl md:text-3xl font-bold tracking-tight">Examen Integral Interactivo</h1>
+            <p class="text-indigo-200 mt-1 text-sm md:text-base">Unidad 1 y Unidad 2 (Páginas 1 a 45) recuerden, son temas que hipoteticamente pueden salir en las preguntas, no lo aseguro al 100%</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-2xl w-full mx-auto p-4 md:p-6 my-6">
+        <div id="quiz-container" class="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 md:p-8">
+            <!-- Progress & Stats -->
+            <div class="flex justify-between items-center mb-6 text-sm font-medium text-slate-500 border-b border-slate-100 pb-4">
+                <span id="question-counter">Pregunta 1 de 15</span>
+                <span id="score-tracker" class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-xs font-semibold">Puntuación: 0</span>
+            </div>
+
+            <!-- Question Text -->
+            <h2 id="question-text" class="text-lg md:text-xl font-semibold text-slate-800 mb-6">
+                Cargando pregunta...
+            </h2>
+
+            <!-- Options Container -->
+            <div id="options-container" class="space-y-3">
+                <!-- Dynamically injected option buttons -->
+            </div>
+
+            <!-- Feedback Box -->
+            <div id="feedback-box" class="hidden mt-6 p-4 rounded-xl text-sm transition-all duration-300">
+                <p id="feedback-text" class="font-medium"></p>
+            </div>
+
+            <!-- Next Button -->
+            <div class="mt-8 flex justify-end">
+                <button id="next-btn" onclick="handleNextQuestion()" class="hidden bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-6 py-2.5 rounded-xl transition-all shadow-sm cursor-pointer">
+                    Siguiente Pregunta
+                </button>
+            </div>
+        </div>
+
+        <!-- Completion Screen -->
+        <div id="result-container" class="hidden bg-white rounded-2xl shadow-xl border border-slate-100 p-8 text-center">
+            <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                🏆
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">¡Examen Completado con Éxito!</h2>
+            <p id="final-score-text" class="text-slate-600 mb-6 text-lg"></p>
+            <button onclick="restartQuiz()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-8 py-3 rounded-xl transition-all shadow-sm cursor-pointer">
+                Intentar Nuevamente
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-400">
+        Práctica interactiva basada en el material de estudio (Páginas 1 a 45).
+    </footer>
+
+    <!-- Quiz Logic Script -->
+    <script>
+        const quizData = [
+            {
+                question: "¿Quién escribió el primer tratado completo sobre la Ingeniería de Sistemas en 1962?",
+                options: [
+                    { text: "Melvin J. Kelly", isCorrect: false, rationale: "Melvin J. Kelly publicó la primera descripción amplia en 1950, pero no el tratado completo de 1962." },
+                    { text: "Arthur D. Hall", isCorrect: true, rationale: "Arthur D. Hall escribió el primer tratado completo sobre la disciplina en 1962." },
+                    { text: "Blaise Pascal", isCorrect: false, rationale: "Blaise Pascal inventó la calculadora mecánica 'Pascalina'." }
+                ]
+            },
+            {
+                question: "¿Qué organismo internacional celebró una cumbre en 2003 que impulsó fuertemente el uso y la infraestructura de las TIC y la seguridad digital?",
+                options: [
+                    { text: "La Cumbre Mundial sobre la Sociedad de la Información", isCorrect: true, rationale: "La Cumbre Mundial sobre la Sociedad de la Información de 2003 promovió el acceso a las TIC y seguridad digital." },
+                    { text: "La Organización Mundial del Comercio (OMC)", isCorrect: false, rationale: "La OMC se enfoca en las normas globales del comercio internacional." },
+                    { text: "La Unión Internacional de Telecomunicaciones (UIT)", isCorrect: false, rationale: "Aunque regula telecomunicaciones, la cumbre específica impulsora de este marco en 2003 fue la CMSI." }
+                ]
+            },
+            {
+                question: "A diferencia de otros países donde el rol del ingeniero modela sistemas complejos industriales, ¿en qué se desempeña principalmente el ingeniero de sistemas en Colombia?",
+                options: [
+                    { text: "En investigación de hardware aeroespacial", isCorrect: false, rationale: "El sector aeroespacial no es el núcleo del mercado laboral nacional en esta área." },
+                    { text: "En diseño de microprocesadores cuánticos", isCorrect: false, rationale: "Los microprocesadores cuánticos corresponden a investigación científica avanzada internacional." },
+                    { text: "En desarrollo de software, redes y telecomunicaciones, y soporte técnico", isCorrect: true, rationale: "En Colombia el rol se orienta fuertemente al desarrollo de software, redes y soporte técnico." }
+                ]
+            },
+            {
+                question: "¿Cuál de los siguientes es considerado un reto importante para la ingeniería de sistemas en el contexto colombiano?",
+                options: [
+                    { text: "La prohibición total del software libre por ley", isCorrect: false, rationale: "No existe tal prohibición; las políticas estatales promueven el uso y desarrollo de TIC." },
+                    { text: "El déficit de profesionales calificados y la fuga de talentos al exterior", isCorrect: true, rationale: "El país enfrenta un déficit de talento calificado y migración de profesionales." },
+                    { text: "La escasez absoluta de electricidad en las universidades", isCorrect: false, rationale: "La falta total de energía no es el reto estructural planteado en el texto." }
+                ]
+            },
+            {
+                question: "¿Qué especialidad de la ingeniería de sistemas busca minimizar los esfuerzos físicos y proteger vidas humanas en tareas de alto riesgo?",
+                options: [
+                    { text: "La robótica", isCorrect: true, rationale: "La robótica automatiza labores peligrosas y reduce el esfuerzo físico." },
+                    { text: "La computación gráfica", isCorrect: false, rationale: "La computación gráfica se enfoca en la creación de imágenes, animaciones y entornos virtuales." },
+                    { text: "La administración comercial", isCorrect: false, rationale: "La administración comercial se relaciona con la gestión de negocios y finanzas." }
+                ]
+            },
+            {
+                question: "¿Cuál es el dispositivo de cálculo precursor más antiguo mencionado, datado aproximadamente en el 3000 a. C.?",
+                options: [
+                    { text: "La Pascalina", isCorrect: false, rationale: "La Pascalina es un invento mecánico posterior del siglo XVII." },
+                    { text: "El ENIAC", isCorrect: false, rationale: "El ENIAC fue el colosal computador electrónico de los años 40." },
+                    { text: "El Ábaco", isCorrect: true, rationale: "El ábaco es reconocido como uno de los dispositivos precursores más antiguos." }
+                ]
+            },
+            {
+                question: "¿Qué tecnología caracterizó principalmente a la primera generación de computadores en la década de 1940?",
+                options: [
+                    { text: "Los transistores", isCorrect: false, rationale: "Los transistores definieron la segunda generación en los años 50." },
+                    { text: "Los tubos al vacío", isCorrect: true, rationale: "La primera generación se basó en tubos al vacío, resultando en equipos pesados y de gran consumo." },
+                    { text: "Los circuitos integrados de silicio", isCorrect: false, rationale: "Los circuitos integrados corresponden a la tercera generación." }
+                ]
+            },
+            {
+                question: "¿Qué dispositivo electrónico reemplazó a los tubos al vacío, dando paso a la segunda generación de computadores en los años 50?",
+                options: [
+                    { text: "El transistor", isCorrect: true, rationale: "El transistor redujo significativamente el tamaño, consumo y calor frente a los tubos al vacío." },
+                    { text: "El microprocesador LSI", isCorrect: false, rationale: "Los microprocesadores pertenecen a generaciones posteriores (cuarta generación)." },
+                    { text: "El disco duro magnético", isCorrect: false, rationale: "Los discos magnéticos fueron medios de almacenamiento complementarios." }
+                ]
+            },
+            {
+                question: "¿Qué avance fundamental introdujo la tercera generación de computadores durante la década de 1960?",
+                options: [
+                    { text: "Las pantallas táctiles de alta definición", isCorrect: false, rationale: "Las pantallas táctiles son tecnología avanzada mucho más reciente." },
+                    { text: "Los circuitos integrados (chips)", isCorrect: true, rationale: "Los circuitos integrados permitieron miniaturizar y abaratar masivamente los equipos." },
+                    { text: "Las redes inalámbricas Wi-Fi", isCorrect: false, rationale: "El Wi-Fi se desarrolló y masificó décadas después." }
+                ]
+            },
+            {
+                question: "¿En qué década comenzaron a popularizarse masivamente los computadores personales (PCs) para el hogar en marcas como IBM y Apple?",
+                options: [
+                    { text: "En los años 60", isCorrect: false, rationale: "En los 60 predominaban los grandes mainframes y minicomputadores empresariales." },
+                    { text: "En los años 80", isCorrect: true, rationale: "Los años 80 vieron el auge de los computadores personales en hogares y oficinas." },
+                    { text: "En los años 2000", isCorrect: false, rationale: "Para el 2000 la computación personal ya estaba altamente consolidada y evolucionando a internet masivo." }
+                ]
+            },
+            {
+                question: "¿Qué hito tecnológico importante de la cuarta generación ocurrió en el año 1995 y revolucionó el acceso masivo a la computación y las oficinas?",
+                options: [
+                    { text: "El lanzamiento del sistema operativo Windows 95", isCorrect: true, rationale: "Windows 95 marcó un hito histórico en la masificación del software de usuario y oficina." },
+                    { text: "La creación de la primera página web mundial", isCorrect: false, rationale: "La World Wide Web se originó a principios de los 90 (CERN)." },
+                    { text: "La invención del primer procesador de doble núcleo", isCorrect: false, rationale: "Los procesadores multicore llegaron comercialmente en la década del 2000." }
+                ]
+            },
+            {
+                question: "¿A qué generación de computadores corresponde el enfoque en la inteligencia artificial, la robótica y los sistemas expertos?",
+                options: [
+                    { text: "A la primera generación", isCorrect: false, rationale: "La primera generación se limitaba al cálculo básico con tubos al vacío." },
+                    { text: "A la tercera generación", isCorrect: false, rationale: "La tercera generación introdujo los circuitos integrados." },
+                    { text: "A la quinta generación", isCorrect: true, rationale: "La quinta generación se centra en la inteligencia artificial y sistemas expertos." }
+                ]
+            },
+            {
+                question: "¿Quién fue el autor de la primera descripción amplia sobre la ingeniería de sistemas en 1950 debido a la complejidad de las redes telefónicas en los laboratorios Bell?",
+                options: [
+                    { text: "Melvin J. Kelly", isCorrect: true, rationale: "Melvin J. Kelly publicó la primera gran descripción de la disciplina en 1950." },
+                    { text: "Charles Babbage", isCorrect: false, rationale: "Charles Babbage diseñó la máquina analítica en el siglo XIX." },
+                    { text: "Alan Turing", isCorrect: false, rationale: "Alan Turing es fundamental en la teoría de la computación y la inteligencia artificial." }
+                ]
+            },
+            {
+                question: "¿Cuál fue el nombre de uno de los computadores electrónicos de primera generación más emblemáticos de los años 40?",
+                options: [
+                    { text: "ENIAC", isCorrect: true, rationale: "El ENIAC es el computador electrónico de primera generación más emblemático." },
+                    { text: "Macintosh 128K", isCorrect: false, rationale: "El Macintosh pertenece a la época de los ordenadores personales de los años 80." },
+                    { text: "IBM PC 5150", isCorrect: false, rationale: "El IBM PC se lanzó en 1981." }
+                ]
+            },
+            {
+                question: "¿Qué año se señala históricamente como la primera aparición oficial y patente del término 'PC' (Computador Personal)?",
+                options: [
+                    { text: "1964", isCorrect: true, rationale: "1964 registra la primera aparición oficial y patente del término PC." },
+                    { text: "1975", isCorrect: false, rationale: "1975 vio nacer el Altair 8800, considerado un catalizador de las microcomputadoras." },
+                    { text: "1981", isCorrect: false, rationale: "1981 fue el año del lanzamiento del emblemático IBM PC." }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        const questionCounterEl = document.getElementById("question-counter");
+        const scoreTrackerEl = document.getElementById("score-tracker");
+        const questionTextEl = document.getElementById("question-text");
+        const optionsContainerEl = document.getElementById("options-container");
+        const feedbackBoxEl = document.getElementById("feedback-box");
+        const feedbackTextEl = document.getElementById("feedback-text");
+        const nextBtnEl = document.getElementById("next-btn");
+        const quizContainerEl = document.getElementById("quiz-container");
+        const resultContainerEl = document.getElementById("result-container");
+        const finalScoreTextEl = document.getElementById("final-score-text");
+
+        function loadQuestion() {
+            answered = false;
+            feedbackBoxEl.classList.add("hidden");
+            nextBtnEl.classList.add("hidden");
+
+            const currentQ = quizData[currentQuestionIndex];
+            questionCounterEl.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizData.length}`;
+            scoreTrackerEl.textContent = `Puntuación: ${score}`;
+            questionTextEl.textContent = currentQ.question;
+
+            optionsContainerEl.innerHTML = "";
+            currentQ.options.forEach((option, index) => {
+                const btn = document.createElement("button");
+                btn.className = "w-full text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/40 text-slate-700 font-medium transition-all cursor-pointer flex items-center justify-between";
+                btn.innerHTML = `<span>${option.text}</span>`;
+                btn.onclick = () => selectOption(index, btn);
+                optionsContainerEl.appendChild(btn);
+            });
+        }
+
+    function selectOption(selectedIndex, selectedButton) {
+        if (answered) return;
+        answered = true;
+
+        const currentQ = quizData[currentQuestionIndex];
+        const optionButtons = optionsContainerEl.children;
+
+        for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            optionButtons[i].classList.remove("hover:border-indigo-500", "hover:bg-indigo-50/40");
+            
+            if (currentQ.options[i].isCorrect) {
+                optionButtons[i].classList.add("bg-emerald-50", "border-emerald-500", "text-emerald-900");
+            } else if (i === selectedIndex) {
+                optionButtons[i].classList.add("bg-rose-50", "border-rose-500", "text-rose-900");
+            } else {
+                optionButtons[i].classList.add("opacity-50");
+            }
+        }
+
+        const isCorrect = currentQ.options[selectedIndex].isCorrect;
+        if (isCorrect) {
+            score++;
+            scoreTrackerEl.textContent = `Puntuación: ${score}`;
+            feedbackBoxEl.className = "mt-6 p-4 rounded-xl text-sm bg-emerald-50 border border-emerald-200 text-emerald-800";
+            feedbackTextEl.innerHTML = `<strong>¡Correcto!</strong> ${currentQ.options[selectedIndex].rationale}`;
+        } else {
+            feedbackBoxEl.className = "mt-6 p-4 rounded-xl text-sm bg-rose-50 border border-rose-200 text-rose-800";
+            feedbackTextEl.innerHTML = `<strong>Incorrecto.</strong> ${currentQ.options[selectedIndex].rationale}`;
+        }
+
+        feedbackBoxEl.classList.remove("hidden");
+        nextBtnEl.classList.remove("hidden");
+    }
+
+    function handleNextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizData.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function showResults() {
+        quizContainerEl.classList.add("hidden");
+        resultContainerEl.classList.remove("hidden");
+        finalScoreTextEl.textContent = `Has respondido correctamente ${score} de ${quizData.length} preguntas en este examen integral.`;
+    }
+
+    function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        resultContainerEl.classList.add("hidden");
+        quizContainerEl.classList.remove("hidden");
+        loadQuestion();
+    }
+
+    loadQuestion();
+    </script>
+</body>
+</html>
